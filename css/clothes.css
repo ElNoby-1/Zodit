@@ -1,0 +1,243 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --main-color: #f0f0f0;
+    --second-color: #000000;
+    --hover-color: #65087c;
+    --red-color: rgb(186, 186, 186);
+    --cart-bg: #333; /* لون خلفية جديد للسلة */
+    --item-bg: #F8F8F8; /* لون خلفية بطاقة المنتج */
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    color: var(--second-color);
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: var(--second-color);
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--main-color);
+    width: 100%;
+    border-bottom: 1px solid #000;
+    z-index: 1000;
+}
+
+#header .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    height: 100px;
+    padding: 10px 20px;
+}
+
+#header .navbar .logo {
+    width: 100px;
+    margin: 40px;
+    display: block;
+}
+
+#header .navbar ul {
+    display: flex;
+}
+
+#header .navbar ul li a {
+    color: var(--second-color);
+    font-size: 20px;
+    font-weight: 700;
+    margin: 20px;
+}
+
+#header .navbar ul :hover {
+    color: rgb(106, 63, 106);
+}
+
+.cart {
+    color: var(--second-color);
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    width: 60px;
+}
+
+.cart:hover {
+    color: rgb(106, 63, 106);
+}
+
+/* 1. التنسيق العام لحاوية المنتجات (تخطيط Grid) */
+
+.listproduct {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    padding: 140px 20px;
+    justify-items: center; /* ← توسيط الكروت */
+}
+
+/* 2. تنسيق بطاقة المنتج الفردية (.item) */
+.listproduct .item {
+    width: 100%;      /* خلي الجريد يتحكم */
+    max-width: 320px; /* حجم ثابت جميل */
+    margin: 0;        /* شيل الـ margin القديم */
+}
+
+/* 3. تنسيق الصورة داخل البطاقة */
+.listproduct .item img {
+    /* الصورة يجب أن تكون أصغر من 100% لإظهار التظليل حولها والـ padding */
+    width: 95%; 
+    height: auto;
+    display: block;
+    margin: 0 auto 15px auto; /* توسيط الصورة وإضافة مسافة سفلية */
+    justify-items: center;
+
+    /* يمكنك الإبقاء على تظليل الصورة إذا أردت: */
+    filter: drop-shadow(0 10px 10px rgba(188, 2, 2, 0.15));
+}
+
+/* 4. تنسيق اسم المنتج (h2) */
+.listproduct .item h2 {
+    font-weight: 700;
+    font-size: large;
+    margin-bottom: 5px; /* تم تعديل المسافة */
+    color: #000;
+}
+
+/* 5. تنسيق السعر */
+.listproduct .item .price {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* 6. تنسيق الزر (Add To Cart) */
+.listproduct .item .add.cart {
+    background-color: #FFFFFF;
+    color: #444;
+    border: 1px solid #CCC;
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    width: auto;
+}
+
+/* ------------------------------------ */
+/* تنسيق عربة التسوق           */
+/* ------------------------------------ */
+
+.carttab {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.carttab H1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 1px solid #444;
+    padding-bottom: 15px;
+}
+
+/* تنسيق حاوية الأزرار والقائمة */
+/* الأزرار ثابتة تحت */
+.carttab .listcart {
+    border-top: 1px solid #444;
+    padding-top: 10px;
+}
+
+
+/* تنسيق الأزرار (Close و Checkout) */
+.carttab button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.carttab .close {
+    background-color: var(--red-color); /* لون الإغلاق */
+    color: var(--second-color); /* لون النص */
+}
+
+.carttab .checkout {
+    background-color: var(--hover-color); /* اللون البنفسجي لـ Checkout */
+    color: #fff;
+}
+.carttab {
+    width: 400px;
+    height: 100vh;
+    background-color: var(--cart-bg); 
+    color: var(--main-color);
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1001;
+    padding: 20px;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+    
+    /* ------------------------------------- */
+    /* خصائص الإخفاء والانتقال (Hidden & Transition) */
+    /* ------------------------------------- */
+    
+    /* تحريك الشريط الجانبي 100% خارج الشاشة إلى اليمين */
+    transform: translateX(100%); 
+    
+    /* إضافة حركة سلسة عند الإظهار والإخفاء */
+    transition: transform 0.5s; 
+}
+/* هذا الكلاس يمثل حالة "السلة الظاهرة" */
+body.show-cart .carttab {
+    transform: translateX(0%); /* إرجاعها إلى مكانها الأصلي (المرئي) */
+}
+/* حاوية المنتجات */
+#cartItems {
+    flex: 1;               /* ياخد المساحة المتاحة */
+    overflow-y: auto;      /* اسكرول للمنتجات فقط */
+    margin-bottom: 15px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #444;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.cart-item button {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+
